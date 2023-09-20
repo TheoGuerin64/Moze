@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cir7qmautj6dw" path="res://assets/player.png" id="2_d7ahg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36bki"]
+size = Vector2(30, 30)
 
 [sub_resource type="Gradient" id="Gradient_jc0fa"]
 offsets = PackedFloat32Array(0, 0.733728)
@@ -22,6 +23,8 @@ shape = SubResource("RectangleShape2D_36bki")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(-3.57628e-07, 2.38419e-07)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_d7ahg")
 
 [node name="Light" type="PointLight2D" parent="."]

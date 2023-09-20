@@ -10,8 +10,9 @@ const DIRECTIONS: Array[Vector2i] = [
 	Vector2i.RIGHT,
 ]
 const CALC_ID: int = 0
-const TERRAIN_SET_ID: int = 0
+const WALL_SET_ID: int = 1
 const WALL_ID: int = 0
+const FLOOR_ID: int = 1
 
 
 func initMaze() -> Array[PackedInt32Array]:
@@ -65,16 +66,17 @@ func generateMaze() -> Array[PackedInt32Array]:
 
 
 func _ready() -> void:
-	# add walls to size
 	width = width * 2 + 1
 	height = height * 2 + 1
 
 	var maze: Array[PackedInt32Array] = generateMaze()
 
-	var walls: Array[Vector2i] = []
+	var wall_cells: Array[Vector2i] = []
 	for y in maze.size():
 		for x in maze[0].size():
 			if maze[y][x] == 1:
-				walls.append(Vector2i(x, y))
+				wall_cells.append(Vector2i(x, y))
+			else:
+				set_cell(CALC_ID, Vector2i(x, y), FLOOR_ID, Vector2i.ZERO)
 
-	set_cells_terrain_connect(CALC_ID, walls, TERRAIN_SET_ID, WALL_ID)
+	set_cells_terrain_connect(CALC_ID, wall_cells, WALL_SET_ID, WALL_ID, false)

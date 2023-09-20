@@ -486,8 +486,52 @@ texture = ExtResource("2_wqga4")
 texture_region_size = Vector2i(36, 36)
 0:0/0 = 0
 0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/probability = 0.1
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/probability = 0.1
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+2:0/0/terrains_peering_bit/top_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/terrains_peering_bit/right_side = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_side = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrain = 0
+4:0/0/probability = 0.8
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/terrains_peering_bit/right_side = 0
+4:0/0/terrains_peering_bit/bottom_side = 0
+4:0/0/terrains_peering_bit/left_side = 0
+4:0/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSet" id="TileSet_4f5lt"]
 tile_size = Vector2i(36, 36)
@@ -497,7 +541,7 @@ terrain_set_0/terrain_0/name = "floor"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 terrain_set_1/mode = 0
 terrain_set_1/terrain_0/name = "walls"
-terrain_set_1/terrain_0/color = Color(0.411765, 0.141176, 0.901961, 1)
+terrain_set_1/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_i6wt0")
 sources/1 = SubResource("TileSetAtlasSource_uhbtl")
 
@@ -506,25 +550,21 @@ b = Vector2(0, 36)
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
-color = Color(0, 0, 0, 1)
-
 [node name="Maze" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4f5lt")
 format = 2
-layer_0/tile_data = PackedInt32Array(65535, 196608, 2, 196607, 196608, 2)
+layer_0/tile_data = PackedInt32Array(65535, 196608, 2, 196607, 196608, 2, 65539, 262145, 0, 65538, 262145, 0, 131074, 196609, 0, 131075, 131073, 0, 131076, 131073, 0, 65540, 196609, 0, 4, 131073, 0, 3, 196609, 0, 2, 196609, 0, 65541, 196609, 0, 5, 262145, 0, 131077, 131073, 0, 196613, 196609, 0, 262149, 262145, 0, 262148, 131073, 0, 262147, 196609, 0, 196611, 196609, 0, 196612, 262145, 0, 262150, 262145, 0, 196614, 262145, 0, 131078, 196609, 0, 65542, 131073, 0, 196615, 131073, 0, 131079, 131073, 0, 65543, 262145, 0, 131080, 196609, 0, 196616, 196609, 0, 262152, 262145, 0)
 script = ExtResource("3_aflle")
 
 [node name="Player" parent="." instance=ExtResource("3_2m2r1")]
 position = Vector2(19, 54)
+
+[node name="LightFilter" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0, 0, 0, 1)
 
 [node name="StartBound" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartBound"]
 position = Vector2(0, 36)
 shape = SubResource("SegmentShape2D_acofp")
-
-[node name="LightFilter" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
