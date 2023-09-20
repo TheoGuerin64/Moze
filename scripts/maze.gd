@@ -1,7 +1,7 @@
 extends TileMap
 
-@export var width: int = 15
-@export var height: int = 8
+@export var width: int = 31
+@export var height: int = 17
 
 const DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP,
@@ -9,22 +9,10 @@ const DIRECTIONS: Array[Vector2i] = [
 	Vector2i.LEFT,
 	Vector2i.RIGHT,
 ]
-const CALC_ID: int = 0
-const WALL_SET_ID: int = 1
-const WALL_ID: int = 0
-const FLOOR_ID: int = 1
-
-
-func initMaze() -> Array[PackedInt32Array]:
-	var array: Array[PackedInt32Array] = []
-	array.resize(height)
-	for y in range(height):
-		var line: PackedInt32Array = []
-		line.resize(width)
-		for x in range(width):
-			line[x] = 1
-		array[y] = line
-	return array
+const LAYER_ID: int = 0
+const WALL_TERRAIN_SET_ID: int = 0
+const WALL_TILE_ID: int = 0
+const FLOOR_TILE_ID: int = 1
 
 
 func isValidPosition(pos: Vector2i) -> bool:
@@ -41,9 +29,19 @@ func searchNextDirection(maze: Array[PackedInt32Array], pos: Vector2i) -> Vector
 	return Vector2i.ZERO
 
 
-func generateMaze() -> Array[PackedInt32Array]:
-	assert(width > 1 and height > 1, "ERROR: Maze width and height should be greater than one")
+func initMaze() -> Array[PackedInt32Array]:
+	var array: Array[PackedInt32Array] = []
+	array.resize(height)
+	for y in range(height):
+		var line: PackedInt32Array = []
+		line.resize(width)
+		for x in range(width):
+			line[x] = 1
+		array[y] = line
+	return array
 
+
+func generateMaze() -> Array[PackedInt32Array]:
 	var maze: Array[PackedInt32Array] = initMaze()
 	var pos = Vector2i(1, 1)
 	var stack = [pos]
@@ -66,8 +64,10 @@ func generateMaze() -> Array[PackedInt32Array]:
 
 
 func _ready() -> void:
-	width = width * 2 + 1
-	height = height * 2 + 1
+	assert(width % 2 == 1, "width must be odd")
+	assert(height % 2 == 1, "height must be odd")
+	assert(width > 10, "width must be greater than 10")
+	assert(height > 10, "height must be greater than 10")
 
 	var maze: Array[PackedInt32Array] = generateMaze()
 
@@ -77,6 +77,6 @@ func _ready() -> void:
 			if maze[y][x] == 1:
 				wall_cells.append(Vector2i(x, y))
 			else:
-				set_cell(CALC_ID, Vector2i(x, y), FLOOR_ID, Vector2i.ZERO)
+				set_cell(LAYER_ID, Vector2i(x, y), FLOOR_TILE_ID, Vector2i.ZERO)
 
-	set_cells_terrain_connect(CALC_ID, wall_cells, WALL_SET_ID, WALL_ID, false)
+	set_cells_terrain_connect(LAYER_ID, wall_cells, WALL_TERRAIN_SET_ID, WALL_TILE_ID, false)
