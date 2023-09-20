@@ -14,11 +14,11 @@ const TERRAIN_SET_ID: int = 0
 const WALL_ID: int = 0
 
 
-func initMaze() -> Array[Array]:
-	var array: Array[Array] = []
+func initMaze() -> Array[PackedInt32Array]:
+	var array: Array[PackedInt32Array] = []
 	array.resize(height)
 	for y in range(height):
-		var line: Array[int] = []
+		var line: PackedInt32Array = []
 		line.resize(width)
 		for x in range(width):
 			line[x] = 1
@@ -30,7 +30,7 @@ func isValidPosition(pos: Vector2i) -> bool:
 	return pos.x > 0 and pos.x < width and pos.y > 0 and pos.y < height
 
 
-func searchNextDirection(maze: Array[Array], pos: Vector2i) -> Vector2i:
+func searchNextDirection(maze: Array[PackedInt32Array], pos: Vector2i) -> Vector2i:
 	var directions = DIRECTIONS.duplicate()
 	directions.shuffle()
 	for direction in directions:
@@ -40,10 +40,10 @@ func searchNextDirection(maze: Array[Array], pos: Vector2i) -> Vector2i:
 	return Vector2i.ZERO
 
 
-func generateMaze() -> Array[Array]:
+func generateMaze() -> Array[PackedInt32Array]:
 	assert(width > 1 and height > 1, "ERROR: Maze width and height should be greater than one")
 
-	var maze: Array[Array] = initMaze()
+	var maze: Array[PackedInt32Array] = initMaze()
 	var pos = Vector2i(1, 1)
 	var stack = [pos]
 	while not stack.is_empty():
@@ -64,12 +64,12 @@ func generateMaze() -> Array[Array]:
 	return maze
 
 
-func _ready():
+func _ready() -> void:
 	# add walls to size
 	width = width * 2 + 1
 	height = height * 2 + 1
 
-	var maze: Array[Array] = generateMaze()
+	var maze: Array[PackedInt32Array] = generateMaze()
 
 	var walls: Array[Vector2i] = []
 	for y in maze.size():
