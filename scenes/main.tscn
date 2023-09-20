@@ -1,13 +1,13 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlih368cn1dlg"]
 
-[ext_resource type="Texture2D" uid="uid://c1xhet3sdhtkv" path="res://tile_0034.png" id="1_2mmvs"]
-[ext_resource type="Script" path="res://TileMap.gd" id="2_uygi4"]
-[ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://player.tscn" id="3_2m2r1"]
-[ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://rock.png" id="3_r8r3d"]
+[ext_resource type="Texture2D" uid="uid://c1xhet3sdhtkv" path="res://assets/background.png" id="1_11x4d"]
+[ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://assets/rock.png" id="2_npul8"]
+[ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://scenes/player.tscn" id="3_2m2r1"]
+[ext_resource type="Script" path="res://scripts/TileMap.gd" id="3_aflle"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6wt0"]
 resource_name = "wall"
-texture = ExtResource("3_r8r3d")
+texture = ExtResource("2_npul8")
 texture_region_size = Vector2i(36, 36)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -496,23 +496,23 @@ b = Vector2(0, 32)
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
-texture = ExtResource("1_2mmvs")
+texture = ExtResource("1_11x4d")
 stretch_mode = 1
 
 [node name="Maze" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4f5lt")
 format = 2
 layer_0/tile_data = PackedInt32Array(65535, 196608, 2, 196607, 196608, 2)
-script = ExtResource("2_uygi4")
+script = ExtResource("3_aflle")
 
 [node name="Player" parent="." instance=ExtResource("3_2m2r1")]
 position = Vector2(14, 47)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="LightFilter" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
 
-[node name="StartBlock" type="StaticBody2D" parent="."]
+[node name="StartBound" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StartBlock"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartBound"]
 position = Vector2(0, 32)
 shape = SubResource("SegmentShape2D_acofp")
