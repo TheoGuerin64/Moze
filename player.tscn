@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dybyxmx671uov"]
+
+[ext_resource type="Texture2D" uid="uid://cir7qmautj6dw" path="res://penguin.png" id="1_hgjmt"]
+[ext_resource type="Script" path="res://player.gd" id="1_quhrd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36bki"]
+
+[sub_resource type="Gradient" id="Gradient_jc0fa"]
+offsets = PackedFloat32Array(0, 0.733728)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p6qxc"]
+gradient = SubResource("Gradient_jc0fa")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_quhrd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_36bki")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_hgjmt")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_filter_smooth = 1.0
+texture = SubResource("GradientTexture2D_p6qxc")
+texture_scale = 3.0

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlih368cn1dlg"]
+
+[ext_resource type="Texture2D" uid="uid://c4xru0fgrqwc8" path="res://stone.png" id="1_glhyh"]
+[ext_resource type="Script" path="res://TileMap.gd" id="2_uygi4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_syshv"]
+resource_name = "wall"
+texture = ExtResource("1_glhyh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_4f5lt"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_syshv")
+
+[node name="Main" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_4f5lt")
+format = 2
+script = ExtResource("2_uygi4")
