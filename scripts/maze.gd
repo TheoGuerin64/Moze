@@ -80,3 +80,7 @@ func _ready() -> void:
 				set_cell(LAYER_ID, Vector2i(x, y), FLOOR_TILE_ID, Vector2i.ZERO)
 
 	set_cells_terrain_connect(LAYER_ID, wall_cells, WALL_TERRAIN_SET_ID, WALL_TILE_ID, false)
+
+
+func is_wall(coord: Vector2i) -> bool:
+	return get_cell_source_id(LAYER_ID, coord) == WALL_TILE_ID

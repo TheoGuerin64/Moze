@@ -513,6 +513,7 @@ script = ExtResource("3_4er6t")
 [node name="Player" parent="Maze" instance=ExtResource("3_2m2r1")]
 position = Vector2(18, 54)
 motion_mode = 1
+speed = 250.0
 
 [node name="LightFilter" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
