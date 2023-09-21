@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2jga8ehrm26o"]
+[gd_scene load_steps=3 format=3 uid="uid://d2jga8ehrm26o"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_4rl7d"]
+[ext_resource type="Texture2D" uid="uid://barfaebxeuli3" path="res://assets/torch_icon.png" id="2_whhma"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_4rl7d")
@@ -31,6 +32,11 @@ alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_whhma")
+expand_mode = 2
 
 [node name="TorchCount" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
