@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dlih368cn1dlg"]
+[gd_scene load_steps=17 format=3 uid="uid://dlih368cn1dlg"]
 
 [ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://assets/wall.png" id="1_fsgpu"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_ycult"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://scenes/player.tscn" id="3_2m2r1"]
 [ext_resource type="Script" path="res://scripts/maze.gd" id="3_4er6t"]
 [ext_resource type="Shader" path="res://shader/fog.gdshader" id="5_72aoc"]
+[ext_resource type="PackedScene" uid="uid://crgt6kihpkhro" path="res://scenes/torch.tscn" id="7_rv4dc"]
+[ext_resource type="Script" path="res://scripts/Fog.gd" id="8_x0i65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6wt0"]
 resource_name = "wall"
@@ -510,6 +512,7 @@ noise = SubResource("FastNoiseLite_vf8y1")
 shader = ExtResource("5_72aoc")
 shader_parameter/direction = Vector2(1, 1)
 shader_parameter/speed = 0.1
+shader_parameter/camera_pos = Vector2(0, 0)
 shader_parameter/noise = SubResource("NoiseTexture2D_nwwqq")
 
 [sub_resource type="Gradient" id="Gradient_878re"]
@@ -526,18 +529,23 @@ script = ExtResource("1_ycult")
 [node name="Maze" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4f5lt")
 format = 2
-layer_0/tile_data = PackedInt32Array(65535, 393216, 2, 196607, 393216, 4, 131071, 393216, 3)
 script = ExtResource("3_4er6t")
+width = 51
+
+[node name="Torch" parent="Maze" instance=ExtResource("7_rv4dc")]
+position = Vector2(54, 54)
 
 [node name="Player" parent="Maze" instance=ExtResource("3_2m2r1")]
-position = Vector2(18, 54)
+position = Vector2(54, 54)
 speed = 250.0
+
+[node name="Camera" type="Camera2D" parent="Maze/Player"]
+
+[node name="Fog" type="Sprite2D" parent="Maze/Player"]
+material = SubResource("ShaderMaterial_uregp")
+scale = Vector2(4.5, 648)
+texture = SubResource("GradientTexture1D_nkqhp")
+script = ExtResource("8_x0i65")
 
 [node name="LightFilter" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
-
-[node name="Fog" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_uregp")
-position = Vector2(576, 324)
-scale = Vector2(4.5, 648)
-texture = SubResource("GradientTexture1D_nkqhp")

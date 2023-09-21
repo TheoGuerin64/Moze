@@ -57,7 +57,7 @@ func generateMaze() -> Array[PackedInt32Array]:
 		pos += nextDirection * 2
 		stack.append(pos)
 
-	maze[1][0] = 0
+	# add end
 	maze[height - 2][width - 1] = 0
 
 	return maze
