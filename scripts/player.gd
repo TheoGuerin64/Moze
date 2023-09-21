@@ -66,9 +66,9 @@ func _process(_delta: float) -> void:
 
 		var ui: CanvasLayer = get_node("/root/Main/UI")
 
-		var torch_item: PointLight2D = preload("res://scenes/torch.tscn").instantiate()
-		torch_item.position = position
-		maze.get_node("Torches").add_child(torch_item)
+		var torch: PointLight2D = preload("res://scenes/torch.tscn").instantiate()
+		torch.position = position
+		maze.get_node("Torches").add_child(torch)
 
 		torch_count -= 1
 		ui.update_torch_count(torch_count)

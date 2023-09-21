@@ -9,12 +9,12 @@ size = Vector2(30, 30)
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1uq7t"]
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_ypvie"]
+[sub_resource type="Gradient" id="Gradient_63fc5"]
 offsets = PackedFloat32Array(0, 0.748387)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p6qxc"]
-gradient = SubResource("Gradient_ypvie")
+gradient = SubResource("Gradient_63fc5")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 

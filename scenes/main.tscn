@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://scenes/player.tscn" id="3_2m2r1"]
 [ext_resource type="Script" path="res://scripts/maze.gd" id="3_4er6t"]
 [ext_resource type="Shader" path="res://shader/fog.gdshader" id="5_72aoc"]
-[ext_resource type="PackedScene" uid="uid://d4j37df7i708j" path="res://scenes/torch_item.tscn" id="5_btyc6"]
 [ext_resource type="PackedScene" uid="uid://d2jga8ehrm26o" path="res://scenes/ui.tscn" id="8_i5wd5"]
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="8_x0i65"]
+[ext_resource type="PackedScene" uid="uid://h8ulsyl7ojn7" path="res://scenes/fish.tscn" id="9_vevgb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6wt0"]
 resource_name = "wall"
@@ -532,16 +532,17 @@ tile_set = SubResource("TileSet_4f5lt")
 format = 2
 script = ExtResource("3_4er6t")
 width = 51
+height = 51
+
+[node name="Fish" parent="Maze" instance=ExtResource("9_vevgb")]
 
 [node name="Torches" type="Node2D" parent="Maze"]
 
-[node name="TorchItem" parent="Maze" instance=ExtResource("5_btyc6")]
-position = Vector2(54, 126)
+[node name="TorchItems" type="Node2D" parent="Maze"]
 
 [node name="Player" parent="Maze" instance=ExtResource("3_2m2r1")]
 position = Vector2(54, 54)
 speed = 250.0
-torch_count = 3
 
 [node name="Camera" type="Camera2D" parent="Maze/Player"]
 

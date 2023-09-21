@@ -42,6 +42,12 @@ func init_maze() -> Array[PackedInt32Array]:
 	return array
 
 
+func add_torch_item(coord: Vector2i):
+	var torch_item: Area2D = preload("res://scenes/torch_item.tscn").instantiate()
+	torch_item.position = map_to_local(coord)
+	get_node("TorchItems").add_child(torch_item)
+
+
 func generate_maze() -> Array[PackedInt32Array]:
 	var maze: Array[PackedInt32Array] = init_maze()
 	var pos = Vector2i(1, 1)
@@ -51,6 +57,8 @@ func generate_maze() -> Array[PackedInt32Array]:
 
 		var nextDirection = search_next_direction(maze, pos)
 		if nextDirection == Vector2i.ZERO:
+			if pos == stack[stack.size() - 1] and randi_range(0, 7) == 0:
+				add_torch_item(pos)
 			pos = stack.pop_back()
 			continue
 
@@ -58,9 +66,7 @@ func generate_maze() -> Array[PackedInt32Array]:
 		pos += nextDirection * 2
 		stack.append(pos)
 
-	# add end
-	maze[height - 2][width - 1] = 0
-
+	$Fish.position = Vector2(map_to_local(Vector2i(width - 2, height - 2)))
 	return maze
 
 
