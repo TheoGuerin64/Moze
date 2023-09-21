@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dlih368cn1dlg"]
+[gd_scene load_steps=15 format=3 uid="uid://dlih368cn1dlg"]
 
 [ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://assets/wall.png" id="1_fsgpu"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_ycult"]
 [ext_resource type="Texture2D" uid="uid://b71sori6cuqrp" path="res://assets/floor.png" id="2_wqga4"]
 [ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://scenes/player.tscn" id="3_2m2r1"]
 [ext_resource type="Script" path="res://scripts/maze.gd" id="3_4er6t"]
+[ext_resource type="Shader" path="res://shader/fog.gdshader" id="5_72aoc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6wt0"]
 resource_name = "wall"
@@ -497,12 +499,29 @@ terrain_set_0/terrain_0/color = Color(0.411765, 0.141176, 0.901961, 1)
 sources/0 = SubResource("TileSetAtlasSource_i6wt0")
 sources/1 = SubResource("TileSetAtlasSource_uhbtl")
 
-[node name="Main" type="Node2D"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vf8y1"]
+seed = 9
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
-color = Color(0, 0, 0, 1)
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nwwqq"]
+seamless = true
+noise = SubResource("FastNoiseLite_vf8y1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uregp"]
+shader = ExtResource("5_72aoc")
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/speed = 0.1
+shader_parameter/noise = SubResource("NoiseTexture2D_nwwqq")
+
+[sub_resource type="Gradient" id="Gradient_878re"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.00645161, 1)
+colors = PackedColorArray(0.0605303, 0.0605303, 0.0605303, 1, 0.0588235, 0.0588235, 0.0588235, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nkqhp"]
+gradient = SubResource("Gradient_878re")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ycult")
 
 [node name="Maze" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4f5lt")
@@ -512,8 +531,13 @@ script = ExtResource("3_4er6t")
 
 [node name="Player" parent="Maze" instance=ExtResource("3_2m2r1")]
 position = Vector2(18, 54)
-motion_mode = 1
 speed = 250.0
 
 [node name="LightFilter" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
+
+[node name="Fog" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uregp")
+position = Vector2(576, 324)
+scale = Vector2(4.5, 648)
+texture = SubResource("GradientTexture1D_nkqhp")
