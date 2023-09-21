@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 300
+@export var torch_count: int = 0
 
 var maze: TileMap
 
@@ -48,3 +49,26 @@ func _physics_process(delta) -> void:
 			is_moving = false
 
 		move_and_collide(velocity)
+
+
+func is_torch(torches: Node2D) -> bool:
+	for torch in torches.get_children():
+		if torch.position == position:
+			return true
+	return false
+
+
+func _process(_delta: float) -> void:
+	if not is_moving and Input.is_action_just_released("game_use"):
+		var torches: Node2D = maze.get_node("Torches")
+		if torch_count <= 0 or is_torch(torches):
+			return
+
+		var ui: CanvasLayer = get_node("/root/Main/UI")
+
+		var torch_item: PointLight2D = preload("res://scenes/torch.tscn").instantiate()
+		torch_item.position = position
+		maze.get_node("Torches").add_child(torch_item)
+
+		torch_count -= 1
+		ui.update_torch_count(torch_count)

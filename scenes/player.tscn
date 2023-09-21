@@ -9,16 +9,18 @@ size = Vector2(30, 30)
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1uq7t"]
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_5u7yj"]
+[sub_resource type="Gradient" id="Gradient_ypvie"]
 offsets = PackedFloat32Array(0, 0.748387)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p6qxc"]
-gradient = SubResource("Gradient_5u7yj")
+gradient = SubResource("Gradient_ypvie")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_5hnvh")
 

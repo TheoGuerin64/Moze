@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dlih368cn1dlg"]
+[gd_scene load_steps=18 format=3 uid="uid://dlih368cn1dlg"]
 
 [ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://assets/wall.png" id="1_fsgpu"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_ycult"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dybyxmx671uov" path="res://scenes/player.tscn" id="3_2m2r1"]
 [ext_resource type="Script" path="res://scripts/maze.gd" id="3_4er6t"]
 [ext_resource type="Shader" path="res://shader/fog.gdshader" id="5_72aoc"]
-[ext_resource type="PackedScene" uid="uid://crgt6kihpkhro" path="res://scenes/torch.tscn" id="7_rv4dc"]
+[ext_resource type="PackedScene" uid="uid://d4j37df7i708j" path="res://scenes/torch_item.tscn" id="5_btyc6"]
+[ext_resource type="PackedScene" uid="uid://d2jga8ehrm26o" path="res://scenes/ui.tscn" id="8_i5wd5"]
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="8_x0i65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6wt0"]
@@ -532,12 +533,15 @@ format = 2
 script = ExtResource("3_4er6t")
 width = 51
 
-[node name="Torch" parent="Maze" instance=ExtResource("7_rv4dc")]
-position = Vector2(54, 54)
+[node name="Torches" type="Node2D" parent="Maze"]
+
+[node name="TorchItem" parent="Maze" instance=ExtResource("5_btyc6")]
+position = Vector2(54, 126)
 
 [node name="Player" parent="Maze" instance=ExtResource("3_2m2r1")]
 position = Vector2(54, 54)
 speed = 250.0
+torch_count = 3
 
 [node name="Camera" type="Camera2D" parent="Maze/Player"]
 
@@ -549,3 +553,5 @@ script = ExtResource("8_x0i65")
 
 [node name="LightFilter" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
+
+[node name="UI" parent="." instance=ExtResource("8_i5wd5")]

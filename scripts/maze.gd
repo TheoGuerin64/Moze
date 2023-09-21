@@ -15,21 +15,22 @@ const WALL_TILE_ID: int = 0
 const FLOOR_TILE_ID: int = 1
 
 
-func isValidPosition(pos: Vector2i) -> bool:
+func is_valid_position(pos: Vector2i) -> bool:
 	return pos.x > 0 and pos.x < width and pos.y > 0 and pos.y < height
 
 
-func searchNextDirection(maze: Array[PackedInt32Array], pos: Vector2i) -> Vector2i:
-	var directions = DIRECTIONS.duplicate()
+func search_next_direction(maze: Array[PackedInt32Array], pos: Vector2i) -> Vector2i:
+	var directions: Array[Vector2i] = DIRECTIONS.duplicate()
 	directions.shuffle()
+
 	for direction in directions:
-		var newPos = pos + direction * 2
-		if isValidPosition(newPos) and maze[newPos.y][newPos.x] == 1 :
+		var new_position: Vector2i = pos + direction * 2
+		if is_valid_position(new_position) and maze[new_position.y][new_position.x] == 1 :
 			return direction
 	return Vector2i.ZERO
 
 
-func initMaze() -> Array[PackedInt32Array]:
+func init_maze() -> Array[PackedInt32Array]:
 	var array: Array[PackedInt32Array] = []
 	array.resize(height)
 	for y in range(height):
@@ -41,14 +42,14 @@ func initMaze() -> Array[PackedInt32Array]:
 	return array
 
 
-func generateMaze() -> Array[PackedInt32Array]:
-	var maze: Array[PackedInt32Array] = initMaze()
+func generate_maze() -> Array[PackedInt32Array]:
+	var maze: Array[PackedInt32Array] = init_maze()
 	var pos = Vector2i(1, 1)
 	var stack = [pos]
 	while not stack.is_empty():
 		maze[pos.y][pos.x] = 0
 
-		var nextDirection = searchNextDirection(maze, pos)
+		var nextDirection = search_next_direction(maze, pos)
 		if nextDirection == Vector2i.ZERO:
 			pos = stack.pop_back()
 			continue
@@ -69,7 +70,7 @@ func _ready() -> void:
 	assert(width > 10, "width must be greater than 10")
 	assert(height > 10, "height must be greater than 10")
 
-	var maze: Array[PackedInt32Array] = generateMaze()
+	var maze: Array[PackedInt32Array] = generate_maze()
 
 	var wall_cells: Array[Vector2i] = []
 	for y in maze.size():
