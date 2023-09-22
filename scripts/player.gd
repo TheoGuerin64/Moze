@@ -1,17 +1,13 @@
 extends CharacterBody2D
 
-@export var speed: float = 300
-@export var torch_count: int = 0
+@export var speed: float = 100
 
-var maze: TileMap
+@onready var maze: TileMap = get_parent()
+@onready var torches: Node2D = get_parent().get_node("Torches")
 
 var is_moving: bool = false
 var target_direction: Vector2i = Vector2i.ZERO
 var target_pos: Vector2 = Vector2.ZERO
-
-
-func _ready() -> void:
-	maze = get_parent()
 
 
 func get_direction(coord: Vector2i) -> Vector2i:
@@ -65,19 +61,12 @@ func _input(event: InputEvent) -> void:
 			Events.change_scene.emit("res://scenes/scene_manager.tscn")
 		if input_event.is_action_pressed("game_quit"):
 			get_tree().quit()
+		if input_event.is_action_pressed("game_use"):
+			if is_moving or Data.torch_count <= 0 or is_torch(torches):
+				return
 
+			var torch: PointLight2D = preload("res://scenes/torch.tscn").instantiate()
+			torch.position = position
+			maze.get_node("Torches").add_child(torch)
 
-func _process(_delta: float) -> void:
-	if not is_moving and Input.is_action_just_released("game_use"):
-		var torches: Node2D = maze.get_node("Torches")
-		if torch_count <= 0 or is_torch(torches):
-			return
-
-		var ui: CanvasLayer = get_node("/root/Main/UI")
-
-		var torch: PointLight2D = preload("res://scenes/torch.tscn").instantiate()
-		torch.position = position
-		maze.get_node("Torches").add_child(torch)
-
-		torch_count -= 1
-		ui.update_torch_count(torch_count)
+			Data.torch_count -= 1

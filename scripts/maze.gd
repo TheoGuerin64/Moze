@@ -1,7 +1,7 @@
 extends TileMap
 
-@export var width: int = 31
-@export var height: int = 17
+@export var width: int = 11
+@export var height: int = 11
 
 const DIRECTIONS: Array[Vector2i] = [
 	Vector2i.UP,

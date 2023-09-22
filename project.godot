@@ -18,6 +18,7 @@ config/icon="res://assets/player.png"
 [autoload]
 
 Events="*res://scripts/event.gd"
+Data="*res://scripts/data.gd"
 
 [display]
 
