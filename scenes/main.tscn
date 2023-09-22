@@ -531,6 +531,8 @@ script = ExtResource("1_ycult")
 tile_set = SubResource("TileSet_4f5lt")
 format = 2
 script = ExtResource("3_4er6t")
+width = 51
+height = 51
 
 [node name="Fish" parent="Maze" instance=ExtResource("9_vevgb")]
 
