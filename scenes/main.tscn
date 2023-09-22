@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dlih368cn1dlg"]
+[gd_scene load_steps=19 format=3 uid="uid://dlih368cn1dlg"]
 
 [ext_resource type="Texture2D" uid="uid://dyxeco5n6ui6x" path="res://assets/wall.png" id="1_fsgpu"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_ycult"]
@@ -502,11 +502,16 @@ terrain_set_0/terrain_0/color = Color(0.411765, 0.141176, 0.901961, 1)
 sources/0 = SubResource("TileSetAtlasSource_i6wt0")
 sources/1 = SubResource("TileSetAtlasSource_uhbtl")
 
+[sub_resource type="Gradient" id="Gradient_rji5u"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vf8y1"]
 seed = 9
+frequency = 0.02
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nwwqq"]
 seamless = true
+color_ramp = SubResource("Gradient_rji5u")
 noise = SubResource("FastNoiseLite_vf8y1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uregp"]
@@ -518,8 +523,8 @@ shader_parameter/noise = SubResource("NoiseTexture2D_nwwqq")
 
 [sub_resource type="Gradient" id="Gradient_878re"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0.00645161, 1)
-colors = PackedColorArray(0.0605303, 0.0605303, 0.0605303, 1, 0.0588235, 0.0588235, 0.0588235, 1)
+offsets = PackedFloat32Array(0.00645161)
+colors = PackedColorArray(0.0605303, 0.0605303, 0.0605303, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_nkqhp"]
 gradient = SubResource("Gradient_878re")
