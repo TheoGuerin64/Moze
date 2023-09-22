@@ -58,13 +58,16 @@ func is_torch(torches: Node2D) -> bool:
 	return false
 
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		var input_event: InputEventKey = event as InputEventKey
+		if input_event.is_action_pressed("game_restart"):
+			Events.change_scene.emit("res://scenes/scene_manager.tscn")
+		if input_event.is_action_pressed("game_quit"):
+			get_tree().quit()
+
+
 func _process(_delta: float) -> void:
-	if Input.is_action_just_released("game_restart"):
-		get_tree().reload_current_scene()
-
-	if Input.is_action_just_released("game_quit"):
-		get_tree().quit()
-
 	if not is_moving and Input.is_action_just_released("game_use"):
 		var torches: Node2D = maze.get_node("Torches")
 		if torch_count <= 0 or is_torch(torches):

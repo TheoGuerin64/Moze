@@ -1,4 +1,5 @@
 extends Area2D
 
+
 func _on_body_entered(body: Node2D) -> void:
-	get_tree().reload_current_scene()
+	Events.change_scene.emit("res://scenes/scene_manager.tscn")
